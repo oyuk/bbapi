@@ -52,3 +52,4 @@ gem 'whenever', :require => false
 gem 'rabl'
 gem 'mechanize'
 gem 'awesome_print'
+gem 'unicorn'
