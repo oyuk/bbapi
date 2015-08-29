@@ -4,13 +4,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :game_date ,param: :date
     end
-
-
   end
 
-  resources :game_date
-  root to: 'game_date#index'
-
+  #root to: 'game_date#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
