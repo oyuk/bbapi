@@ -34,6 +34,10 @@ task scraping: :environment do
           homeScores.push($1)
           awayScores.push($2)
           gameScores.push(elem.text)
+        elsif elem.text == "-" #中止の場合
+          homeScores.push("")
+          awayScores.push("")
+          gameScores.push("")
         end
 
         elem.xpath('a').each do |e|
@@ -46,12 +50,21 @@ task scraping: :environment do
       end
 
       # pitchers
-      node.xpath('td[@class="today"]/table/tr').each do |elem|
-        pitchers.push({
-                        Win: elem.xpath('td[@class="w"]').text.gsub(/勝[[:space:]]/,""),
-                        Save: elem.xpath('td[@class="s"]').text.gsub(/S[[:space:]]/,""),
-                        Lose: elem.xpath('td[@class="l"]').text.gsub(/敗[[:space:]]/,"")
-                      })
+      node.xpath('td[@class="today"]').each do |elem|
+        if e = elem.xpath('table/tr')
+          pitchers.push({
+                          Win: e.xpath('td[@class="w"]').text.gsub(/勝[[:space:]]/,""),
+                          Save: e.xpath('td[@class="s"]').text.gsub(/S[[:space:]]/,""),
+                          Lose: e.xpath('td[@class="l"]').text.gsub(/敗[[:space:]]/,"")
+                        })
+        else
+          pitchers.push({
+                          Win: "",
+                          Save: "",
+                          Lose: ""
+                        })
+
+        end
       end
     end
 
@@ -67,14 +80,9 @@ task scraping: :environment do
         start_time = startTimes[i]
         ball_park = ballParks[i]
         inning = innings[i]
-
-        if pitchers[i]
-          win_p = pitchers[i][:Win]
-          save_p = pitchers[i][:Save]
-          lose_p = pitchers[i][:Lose]
-        else
-          win_p = save_p = lose_p = ""
-        end
+        win_p = pitchers[i][:Win]
+        save_p = pitchers[i][:Save]
+        lose_p = pitchers[i][:Lose]
 
         game_date.games.create(
           home:home,
