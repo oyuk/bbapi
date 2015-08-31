@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824104427) do
+ActiveRecord::Schema.define(version: 20150831050331) do
 
   create_table "game_dates", force: :cascade do |t|
     t.date     "game_date",  null: false
@@ -24,12 +24,12 @@ ActiveRecord::Schema.define(version: 20150824104427) do
     t.string   "away",         null: false
     t.string   "start_time",   null: false
     t.string   "ball_park",    null: false
-    t.integer  "home_score",   null: false
-    t.integer  "away_score",   null: false
+    t.integer  "home_score"
+    t.integer  "away_score"
     t.string   "inning",       null: false
-    t.string   "win_pitcher",  null: false
-    t.string   "save_pitcher", null: false
-    t.string   "lose_pitcher", null: false
+    t.string   "win_pitcher"
+    t.string   "save_pitcher"
+    t.string   "lose_pitcher"
     t.integer  "game_date_id", null: false
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
